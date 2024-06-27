@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SuryashaktiConfig(AppConfig):
+class MysiteConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'suryashakti'
+    name = 'mysite'

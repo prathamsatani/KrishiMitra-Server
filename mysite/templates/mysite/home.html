@@ -1,0 +1,221 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KrishiMitra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'images/favicon.ico' %}"
+    />
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <nav
+      class="bg-gradient-to-r from-green-600 to-green-700 p-4 text-white fixed top-0 left-0 right-0 z-50 shadow-md"
+    >
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center">
+          <img
+            src="https://media.istockphoto.com/id/866393210/vector/farm-icon.jpg?s=612x612&w=0&k=20&c=CZnGt4ER-NjDGJJMzyYaGEz3ko9BoYnuf2vNRp-cMfc="
+            alt="KrishiMitra Logo"
+            class="h-12 w-12 rounded-full mr-2 border-2 border-white"
+          />
+          <span class="text-3xl font-bold">KrishiMitra</span>
+        </div>
+        <div class="hidden md:flex space-x-6 items-center">
+          <a
+            href="{% url 'home' %}"
+            class="font-bold hover:text-green-200 text-xl transition duration-300"
+            >Home</a
+          >
+          <a
+            href="{% url 'about' %}"
+            class="font-bold hover:text-green-200 text-xl transition duration-300"
+            >About</a
+          >
+          <a
+            href="{% url 'logout' %}"
+            class="bg-white text-green-600 text-lg px-4 py-2 rounded-full hover:bg-green-100 transition duration-300"
+            >Logout</a
+          >
+        </div>
+        <div class="md:hidden">
+          <button id="menu-toggle" class="text-2xl">&#9776;</button>
+        </div>
+      </div>
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="hidden md:hidden mt-4">
+        <a
+          href="{% url 'home' %}"
+          class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
+          >Home</a
+        >
+        <a
+          href="{% url 'yieldpred' %}"
+          class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
+          >Crop Yield Prediction</a
+        >
+        <a
+          href="{% url 'cropreco' %}"
+          class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
+          >Crop Recommendation</a
+        >
+        <a
+          href="{% url 'fertpred' %}"
+          class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
+          >Fertilizer Recommendation</a
+        >
+        <a
+          href="{% url 'about' %}"
+          class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
+          >About</a
+        >
+        <a
+          href="{% url 'logout' %}"
+          class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
+          >Logout</a
+        >
+      </div>
+    </nav>
+    <section class="pt-20"> 
+    <script>
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      menuToggle.addEventListener("click", function (event) {
+        mobileMenu.classList.toggle("hidden");
+        event.stopPropagation();
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!mobileMenu.contains(event.target) && event.target !== menuToggle) {
+          mobileMenu.classList.add("hidden");
+        }
+      });
+    </script>
+    <!-- Hero Section -->
+    <header class="bg-green-500 text-white py-20">
+      <div
+        class="container mx-auto px-4 flex flex-col md:flex-row items-center"
+      >
+        <div class="md:w-1/2 mb-8 md:mb-0">
+          <h1 class="text-4xl font-bold mb-4">Welcome to KrishiMitra!</h1>
+          <p class="mb-6">
+            Empowering farmers with intelligent agricultural solutions.
+          </p>
+          <a
+            href="{% url 'about' %}"
+            class="bg-white text-green-600 px-6 py-2 rounded-full hover:bg-green-100"
+            >Learn More</a
+          >
+        </div>
+        <div class="md:w-1/2">
+          <img
+            src="https://media.istockphoto.com/id/543212762/photo/tractor-cultivating-field-at-spring.jpg?s=612x612&w=0&k=20&c=uJDy7MECNZeHDKfUrLNeQuT7A1IqQe89lmLREhjIJYU="
+            alt="Farm"
+            class="rounded-lg shadow-lg"
+          />
+        </div>
+      </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <img
+              src="https://media.gettyimages.com/id/57321000/photo/three-combines-harvesting-wheat-in-burlington.jpg?s=612x612&w=0&k=20&c=oEKPWRcUSXkouBz-XImbAjUUIV8_zmhY82IsnFwCKLk="
+              alt="Crop Yield Prediction"
+              class="w-full h-48 object-cover rounded-lg mb-4"
+            />
+            <h3 class="text-xl font-semibold mb-2">Crop Yield Prediction</h3>
+            <p class="text-gray-600 mb-4">
+              Predict your crop yields with our advanced AI models.
+            </p>
+            <a
+              href="{% url 'yieldpred' %}"
+              class="text-green-600 hover:text-green-800"
+              >Learn more &rarr;</a
+            >
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <img
+              src="https://media.istockphoto.com/id/606230424/photo/agriculture.jpg?s=612x612&w=0&k=20&c=byKybbMGCEAgdgfgyvUXC2ttl_8nbfc7JKpKFYg6rw4="
+              alt="Fertilizer Recommendation"
+              class="w-full h-48 object-cover rounded-lg mb-4"
+            />
+            <h3 class="text-xl font-semibold mb-2">
+              Fertilizer Recommendation
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Get personalized fertilizer recommendations for your crops.
+            </p>
+            <a
+              href="{% url 'fertpred' %}"
+              class="text-green-600 hover:text-green-800"
+              >Learn more &rarr;</a
+            >
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <img
+              src="https://www.bioflora.com/wp-content/uploads/2015/02/harvesting-crops.jpg"
+              alt="Crop Recommendation"
+              class="w-full h-48 object-cover rounded-lg mb-4"
+            />
+            <h3 class="text-xl font-semibold mb-2">Crop Recommendation</h3>
+            <p class="text-gray-600 mb-4">
+              Discover the best crops to grow based on your soil and climate.
+            </p>
+            <a
+              href="{% url 'cropreco' %}"
+              class="text-green-600 hover:text-green-800"
+              >Learn more &rarr;</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-green-800 text-white py-10">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8">
+          <div>
+            <h4 class="text-lg font-semibold mb-4">KrishiMitra</h4>
+            <p>&copy; 2024 KrishiMitra Ltd. All rights reserved.</p>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Company</h4>
+            <ul>
+              <li><a href="#" class="hover:text-green-300">About us</a></li>
+              <li><a href="#" class="hover:text-green-300">Blog</a></li>
+              <li><a href="#" class="hover:text-green-300">Contact us</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Support</h4>
+            <ul>
+              <li><a href="#" class="hover:text-green-300">Help center</a></li>
+              <li>
+                <a href="#" class="hover:text-green-300">Terms of service</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-green-300">Privacy policy</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Stay up to Date</h4>
+            <p>Subscribe to our newsletter for the latest updates.</p>
+            <!-- Add a newsletter subscription form here if needed -->
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

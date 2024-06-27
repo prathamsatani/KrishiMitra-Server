@@ -1,0 +1,378 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KrishiMitra - Empowering Farmers with Smart Agriculture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'images/favicon.ico' %}"
+    />
+  </head>
+  <body class="bg-green-50 font-sans">
+    <!-- Sticky Navbar -->
+    <nav
+      class="bg-gradient-to-r from-green-600 to-green-700 p-4 text-white fixed top-0 left-0 right-0 z-50 shadow-md"
+    >
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center">
+          <img
+            src="https://media.istockphoto.com/id/866393210/vector/farm-icon.jpg?s=612x612&w=0&k=20&c=CZnGt4ER-NjDGJJMzyYaGEz3ko9BoYnuf2vNRp-cMfc="
+            alt="KrishiMitra Logo"
+            class="h-12 w-12 rounded-full mr-2 border-2 border-white"
+          />
+          <span class="text-3xl font-bold">KrishiMitra</span>
+        </div>
+        <div class="hidden md:flex space-x-4 items-center">
+          <a href="#features" class="text-xl font-bold hover:text-green-200"
+            >Features</a
+          >
+          <a
+            href="#how-it-works"
+            class="text-xl font-bold hover:text-green-200"
+            >How It Works</a
+          >
+          <a
+            href="#testimonials"
+            class="text-xl font-bold hover:text-green-200"
+            >Testimonials</a
+          >
+          <a
+            href="{% url 'about' %}"
+            class="text-xl font-bold hover:text-green-200"
+            >About</a
+          >
+          <a
+            href="{% url 'login' %}"
+            class="bg-white text-green-600 text-lg px-4 py-2 rounded-full hover:bg-green-100"
+            >Login/Register</a
+          >
+        </div>
+        <div class="md:hidden">
+          <button id="menu-toggle" class="text-xl">&#9776;</button>
+        </div>
+      </div>
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="hidden md:hidden mt-4">
+        <a
+          href="{% url 'signup' %}"
+          class="block py-2 px-4 text-xl hover:bg-green-700"
+          >Register/Login</a
+        >
+        <a href="#features" class="block py-2 px-4 text-xl hover:bg-green-700"
+          >Features</a
+        >
+        <a
+          href="#how-it-works"
+          class="block py-2 px-4 text-xl hover:bg-green-700"
+          >How It Works</a
+        >
+        <a
+          href="#testimonials"
+          class="block py-2 px-4 text-xl hover:bg-green-700"
+          >Testimonials</a
+        >
+        <a
+          href="{% url 'about' %}"
+          class="block py-2 px-4 text-xl hover:bg-green-700"
+          >About</a
+        >
+      </div>
+    </nav>
+    <section class="pt-20"> 
+    <script>
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      menuToggle.addEventListener("click", function (event) {
+        mobileMenu.classList.toggle("hidden");
+        event.stopPropagation();
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!mobileMenu.contains(event.target) && event.target !== menuToggle) {
+          mobileMenu.classList.add("hidden");
+        }
+      });
+    </script>
+    <!-- Hero Section -->
+    <header id="home" class="bg-green-600 text-white py-20">
+      <div
+        class="container mx-auto px-4 flex flex-col md:flex-row items-center"
+      >
+        <div class="md:w-1/2 mb-8 md:mb-0">
+          <h1 class="text-5xl font-bold mb-4">Grow Smarter with KrishiMitra</h1>
+          <p class="text-xl mb-6">
+            Harness the power of AI and data analytics to revolutionize your
+            farming practices.
+          </p>
+          <div class="flex space-x-4">
+            <a
+              href="#features"
+              class="bg-white text-green-600 px-6 py-3 rounded-full hover:bg-green-100 transition duration-300"
+              >Explore Features</a
+            >
+            <a
+              href="{% url 'signup' %}"
+              class="border-2 border-white text-white px-6 py-3 rounded-full hover:bg-white hover:text-green-600 transition duration-300"
+              >Get Started</a
+            >
+          </div>
+        </div>
+        <div class="md:w-1/2">
+          <img
+            src="https://diplomatist.com/wp-content/uploads/2020/04/Precision-Farming_footer_07.15.19-1-scaled.jpg"
+            alt="Smart Farming"
+            class="rounded-lg shadow-2xl"
+          />
+        </div>
+      </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">
+          Our Smart Farming Solutions
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300"
+          >
+            <img
+              src="https://media.gettyimages.com/id/57321000/photo/three-combines-harvesting-wheat-in-burlington.jpg?s=612x612&w=0&k=20&c=oEKPWRcUSXkouBz-XImbAjUUIV8_zmhY82IsnFwCKLk="
+              alt="Crop Yield Prediction"
+              class="w-full h-48 object-cover rounded-lg mb-4"
+            />
+            <h3 class="text-2xl font-semibold mb-2">Crop Yield Prediction</h3>
+            <p class="text-gray-600 mb-4">
+              Leverage AI to forecast your harvest with unprecedented accuracy.
+            </p>
+            <a
+              href="{% url 'yieldpred' %}"
+              class="text-green-600 hover:text-green-800 font-semibold"
+              >Learn more &rarr;</a
+            >
+          </div>
+          <div
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300"
+          >
+            <img
+              src="https://media.istockphoto.com/id/606230424/photo/agriculture.jpg?s=612x612&w=0&k=20&c=byKybbMGCEAgdgfgyvUXC2ttl_8nbfc7JKpKFYg6rw4="
+              alt="Fertilizer Recommendation"
+              class="w-full h-48 object-cover rounded-lg mb-4"
+            />
+            <h3 class="text-2xl font-semibold mb-2">
+              Smart Fertilizer Planner
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Optimize your soil health with personalized fertilizer
+              recommendations.
+            </p>
+            <a
+              href="{% url 'fertpred' %}"
+              class="text-green-600 hover:text-green-800 font-semibold"
+              >Learn more &rarr;</a
+            >
+          </div>
+          <div
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300"
+          >
+            <img
+              src="https://www.bioflora.com/wp-content/uploads/2015/02/harvesting-crops.jpg"
+              alt="Crop Recommendation"
+              class="w-full h-48 object-cover rounded-lg mb-4"
+            />
+            <h3 class="text-2xl font-semibold mb-2">Crop Advisor</h3>
+            <p class="text-gray-600 mb-4">
+              Get data-driven suggestions for the best crops to grow in your
+              region.
+            </p>
+            <a
+              href="{% url 'cropreco' %}"
+              class="text-green-600 hover:text-green-800 font-semibold"
+              >Learn more &rarr;</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="bg-green-100 py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">
+          How KrishiMitra Works
+        </h2>
+        <div class="grid md:grid-cols-4 gap-8">
+          <div class="text-center">
+            <div
+              class="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4"
+            >
+              <span class="text-3xl font-bold text-green-600">1</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Input Your Data</h3>
+            <p class="text-gray-600">
+              Provide information about your farm and current practices.
+            </p>
+          </div>
+          <div class="text-center">
+            <div
+              class="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4"
+            >
+              <span class="text-3xl font-bold text-green-600">2</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">AI Analysis</h3>
+            <p class="text-gray-600">
+              Our advanced AI processes your data along with environmental
+              factors.
+            </p>
+          </div>
+          <div class="text-center">
+            <div
+              class="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4"
+            >
+              <span class="text-3xl font-bold text-green-600">3</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Get Insights</h3>
+            <p class="text-gray-600">
+              Receive personalized recommendations and predictions.
+            </p>
+          </div>
+          <div class="text-center">
+            <div
+              class="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4"
+            >
+              <span class="text-3xl font-bold text-green-600">4</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Implement & Improve</h3>
+            <p class="text-gray-600">
+              Apply the insights and watch your farm thrive.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">
+          What Farmers Say About Us
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <p class="text-gray-600 mb-4">
+              "KrishiMitra has revolutionized the way I farm. The crop yield
+              predictions are incredibly accurate!"
+            </p>
+            <p class="font-semibold">- Rajesh Patel, Gujarat</p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <p class="text-gray-600 mb-4">
+              "The fertilizer recommendations have helped me reduce costs and
+              improve soil health. Highly recommended!"
+            </p>
+            <p class="font-semibold">- Anita Singh, Punjab</p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <p class="text-gray-600 mb-4">
+              "Thanks to KrishiMitra's crop advisor, I've diversified my crops
+              and increased my overall yield."
+            </p>
+            <p class="font-semibold">- Mohan Das, Karnataka</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-green-600 text-white py-20">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold mb-4">Ready to Transform Your Farm?</h2>
+        <p class="text-xl mb-8">
+          Join thousands of farmers who are already benefiting from
+          KrishiMitra's smart agriculture solutions.
+        </p>
+        <a
+          href="{% url 'signup' %}"
+          class="bg-white text-green-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-green-100 transition duration-300"
+          >Get Started for Free</a
+        >
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-green-800 text-white py-10">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8">
+          <div>
+            <h4 class="text-lg font-semibold mb-4">KrishiMitra</h4>
+            <p>&copy; 2024 KrishiMitra Ltd. All rights reserved.</p>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul>
+              <li><a href="#home" class="hover:text-green-300">Home</a></li>
+              <li>
+                <a href="#features" class="hover:text-green-300">Features</a>
+              </li>
+              <li>
+                <a href="#how-it-works" class="hover:text-green-300"
+                  >How It Works</a
+                >
+              </li>
+              <li>
+                <a href="#testimonials" class="hover:text-green-300"
+                  >Testimonials</a
+                >
+              </li>
+              <li>
+                <a href="{% url 'about' %}" class="hover:text-green-300"
+                  >About Us</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Support</h4>
+            <ul>
+              <li><a href="#" class="hover:text-green-300">Help Center</a></li>
+              <li><a href="#" class="hover:text-green-300">FAQs</a></li>
+              <li><a href="#" class="hover:text-green-300">Contact Us</a></li>
+              <li>
+                <a href="#" class="hover:text-green-300">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-green-300">Terms of Service</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Stay Connected</h4>
+            <p class="mb-4">
+              Subscribe to our newsletter for the latest updates and farming
+              tips.
+            </p>
+            <form class="flex">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                class="px-4 py-2 w-full rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-300"
+              />
+              <button
+                type="submit"
+                class="bg-green-500 text-white px-4 py-2 rounded-r-lg hover:bg-green-400 transition duration-300"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
