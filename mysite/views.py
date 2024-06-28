@@ -5,19 +5,28 @@ from .forms import (
     FertilizerRecommenderForm,
     CropRecommenderForm,
     CropYieldPredictionForm,
-    CustomUserCreationForm
+    CustomUserCreationForm,
 )
+from krishimitra import models
 from django.contrib.auth import login
 from django.contrib import messages
+from krishimitra.mlengine import main
+from .postprocessing import (
+    getNamesForYieldPred,
+    getNamesForCropReco,
+    getNamesForFertReco,
+)
+
 
 def index(request):
     return render(request, "mysite/index.html")
 
+
 def home(request):
-    if request.COOKIES.get('username') is not None:
+    if request.COOKIES.get("username") is not None:
         return render(request, "mysite/home.html")
     else:
-        return redirect('login')
+        return redirect("login")
     # return render(request, "mysite/home.html")
 
 
@@ -26,63 +35,181 @@ def about(request):
 
 
 def yieldpred(request):
-    if request.COOKIES.get('username') is not None:
+    if request.COOKIES.get("username") is not None:
         if request.method == "POST":
             form = CropYieldPredictionForm(request.POST)
             if form.is_valid():
-                return render(request, "mysite/yieldpred.html", {"form": form})
+                username = request.COOKIES.get("username")
+                crop = int(form.cleaned_data.get("crop")) + 1  # type: ignore
+                season = int(form.cleaned_data.get("season"))  # type: ignore
+                state = int(form.cleaned_data.get("state"))  # type: ignore
+                area = float(form.cleaned_data.get("area"))  # type: ignore
+                annual_rainfall = float(form.cleaned_data.get("annual_rainfall"))  # type: ignore
+                fertilizer_usage = float(form.cleaned_data.get("fertilizer_usage"))  # type: ignore
+                pesticide_usage = float(form.cleaned_data.get("pesticide_usage"))  # type: ignore
+
+                data = [
+                    crop,
+                    season,
+                    state,
+                    area,
+                    annual_rainfall,
+                    fertilizer_usage,
+                    pesticide_usage,
+                ]
+
+                prediction = main.predictYield(data)
+
+                models.CropYield(
+                    username=username,
+                    name=getNamesForYieldPred(crop, season, state)["crop"],
+                    season=getNamesForYieldPred(crop, season, state)["season"],
+                    state=getNamesForYieldPred(crop, season, state)["state"],
+                    area=area,
+                    annual_rainfall=annual_rainfall,
+                    fertilizer_usage=fertilizer_usage,
+                    pesticide_usage=pesticide_usage,
+                ).save()
+
+                text = "Predicted yield according to the given conditions is " + str(prediction) + " tonnes."
+
+                return render(
+                    request,
+                    "mysite/yieldpred.html",
+                    {"form": form, "prediction": text},
+                )
         else:
             form = CropYieldPredictionForm()
 
-        return render(request, "mysite/yieldpred.html", {"form": form})
+        return render(
+            request, "mysite/yieldpred.html", {"form": form, "prediction": None}
+        )
     else:
-        return redirect('login')
+        return redirect("login")
+
 
 def fertpred(request):
-    if request.COOKIES.get('username') is not None:
+    if request.COOKIES.get("username") is not None:
         if request.method == "POST":
             form = FertilizerRecommenderForm(request.POST)
             if form.is_valid():
+                username = request.COOKIES.get("username")
+                soil_color = int(form.cleaned_data.get("soil"))  # type: ignore
+                nitrogen = float(form.cleaned_data.get("nitrogen"))  # type: ignore
+                phosphorus = float(form.cleaned_data.get("phosphorus"))  # type: ignore
+                potassium = float(form.cleaned_data.get("potassium"))  # type: ignore
+                ph = float(form.cleaned_data.get("ph"))  # type: ignore
+                rainfall = float(form.cleaned_data.get("rainfall"))  # type: ignore
+                temperature = float(form.cleaned_data.get("temperature"))  # type: ignore
+                crop = int(form.cleaned_data.get("crop"))  # type: ignore
 
-                return render(request, "mysite/fertpred.html", {"form": form})
+                data = [
+                    soil_color,
+                    nitrogen,
+                    phosphorus,
+                    potassium,
+                    ph,
+                    rainfall,
+                    temperature,
+                    crop,
+                ]
+
+                prediction = main.recommendFertilizer(data)
+
+                print(data)
+
+                prediction = getNamesForFertReco(soil_color, crop, prediction)[
+                    "fertilizer"
+                ]
+
+                models.FertilizerRecommendation(
+                    username=username,
+                    soil_color=getNamesForFertReco(soil_color, crop, 0)["soil"],
+                    nitrogen=nitrogen,
+                    phosphorus=phosphorus,
+                    potassium=potassium,
+                    ph=ph,
+                    rainfall=rainfall,
+                    temperature=temperature,
+                    crop=getNamesForFertReco(soil_color, crop, 0)["crop"],
+                ).save()
+
+                text = "Most suitable fertilizer according to the given conditions is " + str.upper(prediction) + "."
+
+                return render(
+                    request,
+                    "mysite/fertpred.html",
+                    {"form": form, "prediction": text},
+                )
         else:
             form = FertilizerRecommenderForm()
 
-        return render(request, "mysite/fertpred.html", {"form": form})
+        return render(
+            request, "mysite/fertpred.html", {"form": form, "prediction": None}
+        )
     else:
-        return redirect('login')
+        return redirect("login")
 
 
 def cropreco(request):
-    if request.COOKIES.get('username') is not None:
+    if request.COOKIES.get("username") is not None:
         if request.method == "POST":
             form = CropRecommenderForm(request.POST)
             if form.is_valid():
-                # Process the form data here
-                # You can access form data using form.cleaned_data
-                # Perform your crop recommendation logic
-                # For now, we'll just render the same page
-                return render(request, "mysite/cropreco.html", {"form": form})
+                username = request.COOKIES.get("username")
+                nitrogen = float(form.cleaned_data.get("nitrogen"))  # type: ignore
+                phosphorus = float(form.cleaned_data.get("phosphorus"))  # type: ignore
+                potassium = float(form.cleaned_data.get("potassium"))  # type: ignore
+                ph = float(form.cleaned_data.get("ph"))  # type: ignore
+                rainfall = float(form.cleaned_data.get("rainfall"))  # type: ignore
+                temperature = float(form.cleaned_data.get("temperature"))  # type: ignore
+                humidity = float(form.cleaned_data.get("humidity"))  # type: ignore
+
+                data = [
+                    nitrogen,
+                    phosphorus,
+                    potassium,
+                    ph,
+                    rainfall,
+                    temperature,
+                    humidity,
+                ]
+
+                prediction = main.recommendCrop(data)
+
+                prediction = getNamesForCropReco(prediction)
+
+                models.CropRecommendation(
+                    username=username,
+                    nitrogen=nitrogen,
+                    phosphorus=phosphorus,
+                    potassium=potassium,
+                    ph=ph,
+                    rainfall=rainfall,
+                    temperature=temperature,
+                    humidity=humidity,
+                ).save()
+                
+                text = "Most suitable crop according to the given conditions is " + str.upper(prediction) + "."
+
+                return render(
+                    request,
+                    "mysite/cropreco.html",
+                    {"form": form, "prediction": text},
+                )
         else:
             form = CropRecommenderForm()
 
-        return render(request, "mysite/cropreco.html", {"form": form})
+        return render(
+            request, "mysite/cropreco.html", {"form": form, "prediction": None}
+        )
     else:
-        return redirect('login')
-
-
-def test(request):
-    form = MyForm()
-    if request.method == "POST":
-        form = MyForm(request.POST)
-        if form.is_valid():
-            pass
-    return render(request, "mysite/test.html", context={"form": form})
+        return redirect("login")
 
 
 def login_view(request):
-    if request.COOKIES.get('username') is not None:
-        return redirect('home')
+    if request.COOKIES.get("username") is not None:
+        return redirect("home")
     else:
         if request.method == "POST":
             form = LoginForm(data=request.POST)
@@ -91,8 +218,8 @@ def login_view(request):
                 login(request, user)
                 if user is not None:
                     login(request, user)
-                    response = redirect('home')   
-                    response.set_cookie('username', user.username)
+                    response = redirect("home")
+                    response.set_cookie("username", user.username)
                     return response
                 else:
                     messages.error(request, "Invalid username or password.")
@@ -104,25 +231,28 @@ def login_view(request):
 
 
 def signup_view(request):
-    if request.COOKIES.get('username') is not None:
-        return redirect('home')
+    if request.COOKIES.get("username") is not None:
+        return redirect("home")
     else:
-        if request.method == 'POST':
+        if request.method == "POST":
             form = CustomUserCreationForm(request.POST)
             if form.is_valid():
                 user = form.save()
                 login(request, user)
                 messages.success(request, "Registration successful.")
-                response = redirect('home')
-                response.set_cookie('username', user.username)
+                response = redirect("home")
+                response.set_cookie("username", user.username)
                 return response
             else:
-                messages.error(request, "Unsuccessful registration. Invalid information.")
+                messages.error(
+                    request, "Unsuccessful registration. Invalid information."
+                )
         else:
             form = CustomUserCreationForm()
         return render(request, "mysite/signup.html", {"form": form})
-    
+
+
 def logout_view(request):
-    response = redirect('index')
-    response.delete_cookie('username')
+    response = redirect("index")
+    response.delete_cookie("username")
     return response

@@ -102,18 +102,21 @@ class FertilizerRecommenderForm(forms.Form):
     ]
 
     crop = forms.ChoiceField(
+        required=True,
         choices=CROP_CHOICES,
         widget=forms.Select(
             attrs={"class": "w-full p-2 border border-gray-300 rounded"}
         ),
     )
     soil = forms.ChoiceField(
+        required=True,
         choices=SOIL_CHOICES,
         widget=forms.Select(
             attrs={"class": "w-full p-2 border border-gray-300 rounded"}
         ),
     )
     nitrogen = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -122,6 +125,7 @@ class FertilizerRecommenderForm(forms.Form):
         )
     )
     phosphorus = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -130,6 +134,7 @@ class FertilizerRecommenderForm(forms.Form):
         )
     )
     potassium = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -138,6 +143,7 @@ class FertilizerRecommenderForm(forms.Form):
         )
     )
     ph = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -146,6 +152,7 @@ class FertilizerRecommenderForm(forms.Form):
         )
     )
     rainfall = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -154,6 +161,7 @@ class FertilizerRecommenderForm(forms.Form):
         )
     )
     temperature = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -165,6 +173,7 @@ class FertilizerRecommenderForm(forms.Form):
 
 class CropRecommenderForm(forms.Form):
     nitrogen = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -173,6 +182,7 @@ class CropRecommenderForm(forms.Form):
         )
     )
     phosphorus = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -181,6 +191,7 @@ class CropRecommenderForm(forms.Form):
         )
     )
     potassium = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -189,6 +200,7 @@ class CropRecommenderForm(forms.Form):
         )
     )
     temperature = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -197,6 +209,7 @@ class CropRecommenderForm(forms.Form):
         )
     )
     humidity = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -205,6 +218,7 @@ class CropRecommenderForm(forms.Form):
         )
     )
     ph = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -213,6 +227,7 @@ class CropRecommenderForm(forms.Form):
         )
     )
     rainfall = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -327,12 +342,14 @@ class CropYieldPredictionForm(forms.Form):
     ]
 
     crop = forms.ChoiceField(
+        required=True,
         choices=CROP_CHOICES,
         widget=forms.Select(
             attrs={"class": "w-full p-2 border border-gray-300 rounded"}
         ),
     )
     state = forms.ChoiceField(
+        required=True,
         choices=STATE_CHOICES,
         widget=forms.Select(
             attrs={"class": "w-full p-2 border border-gray-300 rounded"}
@@ -340,6 +357,7 @@ class CropYieldPredictionForm(forms.Form):
     )
 
     season = forms.ChoiceField(
+        required=True,
         choices=SEASON_CHOICES,
         widget=forms.Select(
             attrs={"class": "w-full p-2 border border-gray-300 rounded"}
@@ -347,6 +365,7 @@ class CropYieldPredictionForm(forms.Form):
     )
 
     area = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -356,6 +375,7 @@ class CropYieldPredictionForm(forms.Form):
     )
 
     annual_rainfall = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -365,6 +385,7 @@ class CropYieldPredictionForm(forms.Form):
     )
 
     fertilizer_usage = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
@@ -374,6 +395,7 @@ class CropYieldPredictionForm(forms.Form):
     )
 
     pesticide_usage = forms.FloatField(
+        required=True,
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",

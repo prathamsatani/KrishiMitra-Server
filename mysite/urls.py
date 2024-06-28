@@ -8,7 +8,6 @@ urlpatterns = [
     path("yieldpred/", views.yieldpred, name='yieldpred'),
     path("fertpred/", views.fertpred, name='fertpred'),
     path("cropreco/", views.cropreco, name='cropreco'),
-    path("test/", views.test, name='test'),
     path('login/', views.login_view, name='login'),
     path('signup/', views.signup_view, name='signup'),
     path('logout/', views.logout_view, name='logout'),

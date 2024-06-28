@@ -42,18 +42,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'krishimitra',
-    'tailwind',
     'mysite',
-    'web'
 ]
-
-TAILWIND_APP_NAME = 'web'
-
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
-
-NPM_BIN_PATH = 'C:/Program Files/nodejs/npm.cmd'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
