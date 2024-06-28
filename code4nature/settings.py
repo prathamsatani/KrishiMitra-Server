@@ -36,10 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django_browser_reload',
     'django.contrib.admin',
     'django.contrib.auth',
-    'django_extensions',
     'rest_framework',
     'krishimitra',
     'mysite',
@@ -56,7 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'code4nature.urls'
