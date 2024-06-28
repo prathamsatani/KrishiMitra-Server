@@ -120,7 +120,7 @@ class FertilizerRecommenderForm(forms.Form):
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
-                "placeholder": "Nitrogen Content in (kg/ha)",
+                "placeholder": "Nitrogen Content in (mg/kg) of soil",
             }
         )
     )
@@ -129,7 +129,7 @@ class FertilizerRecommenderForm(forms.Form):
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
-                "placeholder": "Phosphorus Content in (kg/ha)",
+                "placeholder": "Phosphorus Content in (mg/kg) of soil",
             }
         )
     )
@@ -138,7 +138,7 @@ class FertilizerRecommenderForm(forms.Form):
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
-                "placeholder": "Potassium Content in (kg/ha)",
+                "placeholder": "Potassium Content in (mg/kg) of soil",
             }
         )
     )
@@ -177,7 +177,7 @@ class CropRecommenderForm(forms.Form):
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
-                "placeholder": "Nitrogen Content in (kg/ha)",
+                "placeholder": "Nitrogen Content in (mg/kg) of soil",
             }
         )
     )
@@ -186,7 +186,7 @@ class CropRecommenderForm(forms.Form):
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
-                "placeholder": "Phosphorus Content in (kg/ha)",
+                "placeholder": "Phosphorus Content in (mg/kg) of soil",
             }
         )
     )
@@ -195,7 +195,7 @@ class CropRecommenderForm(forms.Form):
         widget=forms.NumberInput(
             attrs={
                 "class": "w-full p-2 border border-gray-300 rounded",
-                "placeholder": "Potassium Content in (kg/ha)",
+                "placeholder": "Potassium Content in (mg/kg) of soil",
             }
         )
     )
