@@ -6,6 +6,7 @@ from .forms import (
     CropRecommenderForm,
     CropYieldPredictionForm,
     CustomUserCreationForm,
+    UserDataInputForm
 )
 from krishimitra import models
 from django.contrib.auth import login
@@ -19,7 +20,10 @@ from .postprocessing import (
 
 
 def index(request):
-    return render(request, "mysite/index.html")
+    if request.COOKIES.get("username") is not None:
+        return redirect("home")
+    else:
+        return render(request, "mysite/index.html")
 
 
 def home(request):
@@ -250,6 +254,59 @@ def signup_view(request):
         else:
             form = CustomUserCreationForm()
         return render(request, "mysite/signup.html", {"form": form})
+
+
+def userDataCollection(request): 
+    if request.COOKIES.get("username") is not None:
+        if request.method == "POST":
+            form = UserDataInputForm(request.POST)
+            if form.is_valid():
+                username = request.COOKIES.get("username")
+                crop = form.cleaned_data.get("crop")
+                season = form.cleaned_data.get("season")
+                state = form.cleaned_data.get("state")
+                yield1 = form.cleaned_data.get("yield1")
+                area = form.cleaned_data.get("area")
+                rainfall = form.cleaned_data.get("rainfall")
+                fertilizer = form.cleaned_data.get("fertilizer")
+                fertilizerQty = form.cleaned_data.get("fertilizerQty")
+                pesticide = form.cleaned_data.get("pesticide")
+                pesticideQty = form.cleaned_data.get("pesticideQty")
+                nitrogen = form.cleaned_data.get("nitrogen")
+                phosphorus = form.cleaned_data.get("phosphorus")
+                potassium = form.cleaned_data.get("potassium")
+                temperature = form.cleaned_data.get("temperature")
+                humidity = form.cleaned_data.get("humidity")
+                ph = form.cleaned_data.get("ph")
+                soilColor = form.cleaned_data.get("soilColor")
+                
+                models.UserDataInput(
+                    username=username,
+                    crop=crop,
+                    season=season,
+                    state=state,
+                    yield1=yield1,
+                    area=area,
+                    rainfall=rainfall,
+                    fertilizer=fertilizer,
+                    fertilizerQty=fertilizerQty,
+                    pesticide=pesticide,
+                    pesticideQty=pesticideQty,
+                    nitrogen=nitrogen,
+                    phosphorus=phosphorus,
+                    potassium=potassium,
+                    temperature=temperature,
+                    humidity=humidity,
+                    ph=ph,
+                    soilColor=soilColor
+                ).save()
+
+                return redirect("home")
+        else:
+            form = UserDataInputForm()
+        return render(request, "mysite/userdata.html", {"form": form})
+    else:
+        return redirect("login")
 
 
 def logout_view(request):

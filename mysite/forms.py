@@ -3,6 +3,7 @@ from django.forms import TextInput, EmailInput, PasswordInput
 from .models import Signup
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class MyForm(forms.ModelForm):
@@ -122,7 +123,7 @@ class FertilizerRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Nitrogen Content in (mg/kg) of soil",
             }
-        )
+        ),
     )
     phosphorus = forms.FloatField(
         required=True,
@@ -131,7 +132,7 @@ class FertilizerRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Phosphorus Content in (mg/kg) of soil",
             }
-        )
+        ),
     )
     potassium = forms.FloatField(
         required=True,
@@ -140,7 +141,7 @@ class FertilizerRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Potassium Content in (mg/kg) of soil",
             }
-        )
+        ),
     )
     ph = forms.FloatField(
         required=True,
@@ -149,7 +150,7 @@ class FertilizerRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "pH Value",
             }
-        )
+        ),
     )
     rainfall = forms.FloatField(
         required=True,
@@ -158,7 +159,7 @@ class FertilizerRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Annual Rainfall in (mm)",
             }
-        )
+        ),
     )
     temperature = forms.FloatField(
         required=True,
@@ -167,7 +168,7 @@ class FertilizerRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Temperature in (°C)",
             }
-        )
+        ),
     )
 
 
@@ -179,7 +180,7 @@ class CropRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Nitrogen Content in (mg/kg) of soil",
             }
-        )
+        ),
     )
     phosphorus = forms.FloatField(
         required=True,
@@ -188,7 +189,7 @@ class CropRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Phosphorus Content in (mg/kg) of soil",
             }
-        )
+        ),
     )
     potassium = forms.FloatField(
         required=True,
@@ -197,7 +198,7 @@ class CropRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Potassium Content in (mg/kg) of soil",
             }
-        )
+        ),
     )
     temperature = forms.FloatField(
         required=True,
@@ -206,7 +207,7 @@ class CropRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Average Temperature in (°C)",
             }
-        )
+        ),
     )
     humidity = forms.FloatField(
         required=True,
@@ -215,7 +216,7 @@ class CropRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Average Humidity in (%)",
             }
-        )
+        ),
     )
     ph = forms.FloatField(
         required=True,
@@ -224,7 +225,7 @@ class CropRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "pH Value",
             }
-        )
+        ),
     )
     rainfall = forms.FloatField(
         required=True,
@@ -233,7 +234,7 @@ class CropRecommenderForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Annual Rainfall in (mm)",
             }
-        )
+        ),
     )
 
 
@@ -371,7 +372,7 @@ class CropYieldPredictionForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Area in (ha)",
             }
-        )
+        ),
     )
 
     annual_rainfall = forms.FloatField(
@@ -381,7 +382,7 @@ class CropYieldPredictionForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Annual Rainfall in (mm)",
             }
-        )
+        ),
     )
 
     fertilizer_usage = forms.FloatField(
@@ -391,7 +392,7 @@ class CropYieldPredictionForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Fertilizer Usage in (kg/ha)",
             }
-        )
+        ),
     )
 
     pesticide_usage = forms.FloatField(
@@ -401,7 +402,7 @@ class CropYieldPredictionForm(forms.Form):
                 "class": "w-full p-2 border border-gray-300 rounded",
                 "placeholder": "Pesticide Usage in (kg/ha)",
             }
-        )
+        ),
     )
 
 
@@ -476,3 +477,169 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class UserDataInputForm(forms.Form):
+    crop = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Crop",
+            }
+        ),
+    )
+    season = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Season",
+            }
+        ),
+    )
+    state = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "State",
+            }
+        ),
+    )
+    yield1 = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Yield",
+            }
+        ),
+    )
+    area = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Area",
+            }
+        ),
+    )
+    rainfall = forms.FloatField(
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Annual Rainfall in (mm)",
+            }
+        ),
+    )
+    fertilizer = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Fertilizer",
+            }
+        ),
+    )
+    fertilizerQty = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Fertilizer Quantity",
+            }
+        ),
+    )
+    pesticide = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Pesticide",
+            }
+        ),
+    )
+    pesticideQty = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Pesticide Quantity",
+            }
+        ),
+    )
+    nitrogen = forms.FloatField(
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Nitrogen Content in (mg/kg) of soil",
+            }
+        ),
+    )
+    phosphorus = forms.FloatField(
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Phosphorus Content in (mg/kg) of soil",
+            }
+        ),
+    )
+    potassium = forms.FloatField(
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Potassium Content in (mg/kg) of soil",
+            }
+        ),
+    )
+    temperature = forms.FloatField(
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Average Temperature in (°C)",
+            }
+        ),
+    )
+    humidity = forms.FloatField(
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Average Humidity in (%)",
+            }
+        ),
+    )
+    ph = forms.FloatField(
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "pH Value",
+            }
+        ),
+    )
+    soilColor = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full p-2 border border-gray-300 rounded",
+                "placeholder": "Soil Color",
+            }
+        ),
+    )
