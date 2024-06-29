@@ -37,6 +37,11 @@
             >About</a
           >
           <a
+            href="{% url 'datacollection' %}"
+            class="font-bold hover:text-green-200 text-xl transition duration-300"
+            >Data Collection</a
+          >
+          <a
             href="{% url 'logout' %}"
             class="bg-white text-green-600 text-lg px-4 py-2 rounded-full hover:bg-green-100 transition duration-300"
             >Logout</a
@@ -67,6 +72,11 @@
           href="{% url 'fertpred' %}"
           class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
           >Fertilizer Recommendation</a
+        >
+        <a
+          href="{% url 'datacollection' %}"
+          class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
+          >Data Collection</a
         >
         <a
           href="{% url 'about' %}"
