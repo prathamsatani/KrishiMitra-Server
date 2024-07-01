@@ -58,5 +58,5 @@ Mobile application is configured such that it can run using this remote server.
 
 Important Links:
 Remote URL: https://krishimitra.azurewebsites.net/
-Github Repo: https://github.com/prathamsatani/KrishiMitra-Server.git 
+Github Repo: https://github.com/prathamsatani/KrishiMitra-Server/tree/master
 Email: 21it417@bvmengineering.ac.in
