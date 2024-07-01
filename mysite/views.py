@@ -62,7 +62,7 @@ def yieldpred(request):
                     pesticide_usage,
                 ]
 
-                prediction = main.predictYield(data)
+                prediction = round(main.predictYield(data) * area, 3)
 
                 models.CropYield(
                     username=username,

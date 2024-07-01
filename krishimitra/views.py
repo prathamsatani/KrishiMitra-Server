@@ -130,7 +130,7 @@ class CropYieldPrediction(APIView):
             "Moth": 54,
         }
 
-        name = crop_correlation[name] + 1
+        name = crop_correlation[name]
         state = state_correlation[state]
         season = season_correlation[season]
         area = float(area)
@@ -171,7 +171,7 @@ class CropYieldPrediction(APIView):
                     pesticide_usage,
                 )
 
-                prediction = predictYield(data)
+                prediction = round(predictYield(data)*area, 3)
 
                 crop_yield = CropYield(
                     username=username,
