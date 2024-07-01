@@ -15,6 +15,9 @@ What We Do:
 ---------------------------------------------------------------------------
                       Installation and Configuration
 ---------------------------------------------------------------------------
+Important Note:
+The server files are present in the `master` branch.
+
 
 1) Clone the repository or download the project files to the local machine.
    Skip this step is the files are already present in the local machine.
@@ -52,3 +55,8 @@ or send an email at 21it417@bvmengineering.ac.in
 
 The same project can be access remotely on the url https://krishimitra.azurewebsites.net/
 Mobile application is configured such that it can run using this remote server.
+
+Important Links:
+Remote URL: https://krishimitra.azurewebsites.net/
+Github Repo: https://github.com/prathamsatani/KrishiMitra-Server.git 
+Email: 21it417@bvmengineering.ac.in
