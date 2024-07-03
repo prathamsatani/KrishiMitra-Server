@@ -21,7 +21,7 @@ from .postprocessing import (
 
 def index(request):
     if request.COOKIES.get("username") is not None:
-        return redirect("home")
+        return redirect("mysite:home")
     else:
         return render(request, "mysite/index.html")
 
@@ -30,7 +30,7 @@ def home(request):
     if request.COOKIES.get("username") is not None:
         return render(request, "mysite/home.html")
     else:
-        return redirect("login")
+        return redirect("mysite:login")
     # return render(request, "mysite/home.html")
 
 
@@ -89,7 +89,7 @@ def yieldpred(request):
             request, "mysite/yieldpred.html", {"form": form, "prediction": None}
         )
     else:
-        return redirect("login")
+        return redirect("mysite:login")
 
 
 def fertpred(request):
@@ -152,7 +152,7 @@ def fertpred(request):
             request, "mysite/fertpred.html", {"form": form, "prediction": None}
         )
     else:
-        return redirect("login")
+        return redirect("mysite:login")
 
 
 def cropreco(request):
@@ -208,12 +208,12 @@ def cropreco(request):
             request, "mysite/cropreco.html", {"form": form, "prediction": None}
         )
     else:
-        return redirect("login")
+        return redirect("mysite:login")
 
 
 def login_view(request):
     if request.COOKIES.get("username") is not None:
-        return redirect("home")
+        return redirect("mysite:home")
     else:
         if request.method == "POST":
             form = LoginForm(data=request.POST)
@@ -222,7 +222,7 @@ def login_view(request):
                 login(request, user)
                 if user is not None:
                     login(request, user)
-                    response = redirect("home")
+                    response = redirect("mysite:home")
                     response.set_cookie("username", user.username)
                     return response
                 else:
@@ -236,7 +236,7 @@ def login_view(request):
 
 def signup_view(request):
     if request.COOKIES.get("username") is not None:
-        return redirect("home")
+        return redirect("mysite:home")
     else:
         if request.method == "POST":
             form = CustomUserCreationForm(request.POST)
@@ -244,7 +244,7 @@ def signup_view(request):
                 user = form.save()
                 login(request, user)
                 messages.success(request, "Registration successful.")
-                response = redirect("home")
+                response = redirect("mysite:home")
                 response.set_cookie("username", user.username)
                 return response
             else:
@@ -301,15 +301,15 @@ def userDataCollection(request):
                     soilColor=soilColor
                 ).save()
 
-                return redirect("home")
+                return redirect("mysite:home")
         else:
             form = UserDataInputForm()
         return render(request, "mysite/userdata.html", {"form": form})
     else:
-        return redirect("login")
+        return redirect("mysite:login")
 
 
 def logout_view(request):
-    response = redirect("index")
+    response = redirect("mysite:index")
     response.delete_cookie("username")
     return response

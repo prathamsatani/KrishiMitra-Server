@@ -1,6 +1,8 @@
 from .views import CropYieldPrediction, CropRecommendation, FertilizerRecommendation, Login, Signup, UserDataInput 
 from django.urls import path
 
+app_name = "krishimitra"    
+
 urlpatterns = [
     path("yieldpred/", CropYieldPrediction.as_view(), name="yieldpred"),
     path("cropreco/", CropRecommendation.as_view(), name="cropreco"),

@@ -27,22 +27,22 @@
         </div>
         <div class="hidden md:flex space-x-6 items-center">
           <a
-            href="{% url 'home' %}"
+            href="{% url 'mysite:home' %}"
             class="font-bold hover:text-green-200 text-xl transition duration-300"
             >Home</a
           >
           <a
-            href="{% url 'about' %}"
+            href="{% url 'mysite:about' %}"
             class="font-bold hover:text-green-200 text-xl transition duration-300"
             >About</a
           >
           <a
-            href="{% url 'datacollection' %}"
+            href="{% url 'mysite:datacollection' %}"
             class="font-bold hover:text-green-200 text-xl transition duration-300"
             >Data Collection</a
           >
           <a
-            href="{% url 'logout' %}"
+            href="{% url 'mysite:logout' %}"
             class="bg-white text-green-600 text-lg px-4 py-2 rounded-full hover:bg-green-100 transition duration-300"
             >Logout</a
           >
@@ -54,37 +54,37 @@
       <!-- Mobile menu -->
       <div id="mobile-menu" class="hidden md:hidden mt-4">
         <a
-          href="{% url 'home' %}"
+          href="{% url 'mysite:home' %}"
           class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
           >Home</a
         >
         <a
-          href="{% url 'yieldpred' %}"
+          href="{% url 'mysite:yieldpred' %}"
           class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
           >Crop Yield Prediction</a
         >
         <a
-          href="{% url 'cropreco' %}"
+          href="{% url 'mysite:cropreco' %}"
           class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
           >Crop Recommendation</a
         >
         <a
-          href="{% url 'fertpred' %}"
+          href="{% url 'mysite:fertpred' %}"
           class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
           >Fertilizer Recommendation</a
         >
         <a
-          href="{% url 'datacollection' %}"
+          href="{% url 'mysite:datacollection' %}"
           class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
           >Data Collection</a
         >
         <a
-          href="{% url 'about' %}"
+          href="{% url 'mysite:about' %}"
           class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
           >About</a
         >
         <a
-          href="{% url 'logout' %}"
+          href="{% url 'mysite:logout' %}"
           class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300"
           >Logout</a
         >
@@ -117,7 +117,7 @@
             Empowering farmers with intelligent agricultural solutions.
           </p>
           <a
-            href="{% url 'about' %}"
+            href="{% url 'mysite:about' %}"
             class="bg-white text-green-600 px-6 py-2 rounded-full hover:bg-green-100"
             >Learn More</a
           >
@@ -148,7 +148,7 @@
               Predict your crop yields with our advanced AI models.
             </p>
             <a
-              href="{% url 'yieldpred' %}"
+              href="{% url 'mysite:yieldpred' %}"
               class="text-green-600 hover:text-green-800"
               >Learn more &rarr;</a
             >
@@ -166,7 +166,7 @@
               Get personalized fertilizer recommendations for your crops.
             </p>
             <a
-              href="{% url 'fertpred' %}"
+              href="{% url 'mysite:fertpred' %}"
               class="text-green-600 hover:text-green-800"
               >Learn more &rarr;</a
             >
@@ -182,7 +182,7 @@
               Discover the best crops to grow based on your soil and climate.
             </p>
             <a
-              href="{% url 'cropreco' %}"
+              href="{% url 'mysite:cropreco' %}"
               class="text-green-600 hover:text-green-800"
               >Learn more &rarr;</a
             >

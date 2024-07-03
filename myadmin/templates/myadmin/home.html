@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - KrishiMitra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<body class="bg-gray-100 font-sans">
+    <nav class="bg-gradient-to-r from-green-600 to-green-700 p-4 text-white fixed top-0 left-0 right-0 z-50 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="{% static 'images/favicon.ico' %}" alt="Admin Logo" class="h-12 w-12 rounded-full mr-2 border-2 border-white">
+                <span class="text-3xl font-bold">KrishiMitra Admin</span>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="" class="font-bold hover:text-green-200 text-xl transition duration-300">Dashboard</a>
+                <a href="" class="font-bold hover:text-green-200 text-xl transition duration-300">Manage App</a>
+                <a href="" class="font-bold hover:text-green-200 text-xl transition duration-300">Change Password</a>
+                <a href="{% url 'myadmin:logout' %}" class="bg-white text-green-600 text-lg px-4 py-2 rounded-full hover:bg-green-100 transition duration-300">Logout</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-2xl">&#9776;</button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4">
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Dashboard</a>
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Manage App</a>
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Change Password</a>
+            <a href="{% url 'myadmin:logout' %}" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Logout</a>
+        </div>
+    </nav>
+
+    <section class="pt-24 pb-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold mb-8">Welcome, {{ request.user.username }}!</h1>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold mb-4">Quick Stats</h2>
+                    <ul>
+                        <li class="mb-2">Total Users: <span class="font-bold">{{ total_users }}</span></li>
+                        <li class="mb-2">Yield Predictions Made: <span class="font-bold">{{ yield_pred }}</span></li>
+                        <li class="mb-2">Crop Recommendations Made: <span class="font-bold">{{ crop_pred }}</span></li>
+                        <li class="mb-2">Fertilizer Recommendations Made: <span class="font-bold">{{ fert_pred }}</span></li>
+                        <li class="mb-2">User Data Collected: <span class="font-bold">{{ user_data }}</span></li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold mb-4">Site Administration</h2>
+                    <ul>
+                        <li class="mb-2">Authentication and Authorization
+                            <ul>
+                                <li class="mb-0 font-bold">&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'myadmin:get_user' %}">Users</a></li>
+                            </ul>
+                        </li>
+                        <li class="mb-2">Data Management
+                            <ul>
+                                <li class="mb-0 font-bold">&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'myadmin:cropyield' %}">Crop Yield</a></li>
+                                <li class="mb-0 font-bold">&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'myadmin:cropreco' %}">Crop Recommendation</a></li>
+                                <li class="mb-0 font-bold">&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'myadmin:fertreco' %}">Fertilizer Recommendation</a></li>
+                                <li class="mb-0 font-bold">&nbsp;&nbsp;&nbsp;&nbsp;<a href="">User Data</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold mb-4">System Health</h2>
+                    <ul>
+                        <li class="mb-2">Server Status: <span class="font-bold text-green-600">Operational</span></li>
+                        <li class="mb-2">Database Status: <span class="font-bold text-green-600">Connected</span></li>
+                        <li class="mb-2">Last Login: <span class="font-bold">{{ last_backup_date|date:"M d, Y H:i" }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="pb-12">
+      <div class="container mx-auto px-4">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h1 class="text-2xl font-bold mb-8">Recent Actions</h1>
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="py-2 px-4 text-left">Time</th>
+                  <th class="py-2 px-4 text-left">Action</th>
+                  <th class="py-2 px-4 text-left">Performed By</th>
+                  <th class="py-2 px-4 text-left">Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for action in recent_actions %}
+                  <tr class="border-b hover:bg-gray-50">
+                    <td class="py-2 px-4">{{ action.action_time|date:"M d, Y H:i" }}</td>
+                    <td class="py-2 px-4">{{ action.action_type }}</td>
+                    <td class="py-2 px-4">{{ action.user.username }}</td>
+                    <td class="py-2 px-4">
+                      {% if action.admin_url %}
+                        <a href="{{ action.admin_url }}" class="text-blue-600 hover:underline">
+                          {{ action.model_name }}: {{ action.object_repr }}
+                        </a>
+                      {% else %}
+                        {{ action.model_name }}: {{ action.object_repr }}
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="4" class="py-2 px-4 text-center">No recent actions.</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-green-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 KrishiMitra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuToggle.addEventListener("click", function(event) {
+            mobileMenu.classList.toggle("hidden");
+            event.stopPropagation();
+        });
+
+        document.addEventListener("click", function(event) {
+            if (!mobileMenu.contains(event.target) && event.target !== menuToggle) {
+                mobileMenu.classList.add("hidden");
+            }
+        });
+    </script>
+</body>
+</html>

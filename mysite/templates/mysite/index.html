@@ -41,12 +41,12 @@
             >Testimonials</a
           >
           <a
-            href="{% url 'about' %}"
+            href="{% url 'mysite:about' %}"
             class="text-xl font-bold hover:text-green-200"
             >About</a
           >
           <a
-            href="{% url 'login' %}"
+            href="{% url 'mysite:login' %}"
             class="bg-white text-green-600 text-lg px-4 py-2 rounded-full hover:bg-green-100"
             >Login/Register</a
           >
@@ -58,7 +58,7 @@
       <!-- Mobile menu -->
       <div id="mobile-menu" class="hidden md:hidden mt-4">
         <a
-          href="{% url 'signup' %}"
+          href="{% url 'mysite:signup' %}"
           class="block py-2 px-4 text-xl hover:bg-green-700"
           >Register/Login</a
         >
@@ -76,7 +76,7 @@
           >Testimonials</a
         >
         <a
-          href="{% url 'about' %}"
+          href="{% url 'mysite:about' %}"
           class="block py-2 px-4 text-xl hover:bg-green-700"
           >About</a
         >
@@ -116,7 +116,7 @@
               >Explore Features</a
             >
             <a
-              href="{% url 'signup' %}"
+              href="{% url 'mysite:signup' %}"
               class="border-2 border-white text-white px-6 py-3 rounded-full hover:bg-white hover:text-green-600 transition duration-300"
               >Get Started</a
             >
@@ -152,7 +152,7 @@
               Leverage AI to forecast your harvest with unprecedented accuracy.
             </p>
             <a
-              href="{% url 'yieldpred' %}"
+              href="{% url 'mysite:yieldpred' %}"
               class="text-green-600 hover:text-green-800 font-semibold"
               >Learn more &rarr;</a
             >
@@ -173,7 +173,7 @@
               recommendations.
             </p>
             <a
-              href="{% url 'fertpred' %}"
+              href="{% url 'mysite:fertpred' %}"
               class="text-green-600 hover:text-green-800 font-semibold"
               >Learn more &rarr;</a
             >
@@ -192,7 +192,7 @@
               region.
             </p>
             <a
-              href="{% url 'cropreco' %}"
+              href="{% url 'mysite:cropreco' %}"
               class="text-green-600 hover:text-green-800 font-semibold"
               >Learn more &rarr;</a
             >
@@ -298,7 +298,7 @@
           KrishiMitra's smart agriculture solutions.
         </p>
         <a
-          href="{% url 'signup' %}"
+          href="{% url 'mysite:signup' %}"
           class="bg-white text-green-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-green-100 transition duration-300"
           >Get Started for Free</a
         >
@@ -331,7 +331,7 @@
                 >
               </li>
               <li>
-                <a href="{% url 'about' %}" class="hover:text-green-300"
+                <a href="{% url 'mysite:about' %}" class="hover:text-green-300"
                   >About Us</a
                 >
               </li>

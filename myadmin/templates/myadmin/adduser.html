@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User - KrishiMitra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<body class="bg-gray-100 font-sans">
+    <nav class="bg-gradient-to-r from-green-600 to-green-700 p-4 text-white fixed top-0 left-0 right-0 z-50 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="{% static 'images/favicon.ico' %}" alt="Admin Logo" class="h-12 w-12 rounded-full mr-2 border-2 border-white">
+                <span class="text-3xl font-bold">KrishiMitra Admin</span>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="" class="font-bold hover:text-green-200 text-xl transition duration-300">Home</a>
+                <a href="{% url 'myadmin:logout' %}" class="bg-white text-green-600 text-lg px-4 py-2 rounded-full hover:bg-green-100 transition duration-300">Logout</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-2xl">&#9776;</button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4">
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Home</a>
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Manage App</a>
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Change Password</a>
+            <a href="{% url 'myadmin:logout' %}" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Logout</a>
+        </div>
+    </nav>
+
+    <section class="pt-24 pb-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl text-center font-bold mb-8">Create New User</h1>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
+                <form method="post" class="space-y-4">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        {{ form.email }}
+                    </div>
+                    <div class="mb-4">
+                        {{ form.username }}
+                    </div>
+                    <div class="flex mb-4 space-x-4">
+                        <div class="w-1/2">
+                            {{ form.first_name }}
+                        </div>
+                        <div class="w-1/2">
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+                    <div class="mb-4 relative">
+                        {{ form.password1 }}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 absolute right-3 top-3 cursor-pointer" viewBox="0 0 20 20" fill="currentColor" id="togglePassword1">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="mb-6 relative">
+                        {{ form.password2 }}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 absolute right-3 top-3 cursor-pointer" viewBox="0 0 20 20" fill="currentColor" id="togglePassword2">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+
+                    <div class="mb-4 flex items-center">
+                        <div class="flex items-center">
+                            {{ form.is_staff }}
+                            <label for="{{ form.is_staff.id_for_label }}" class="ml-2 text-sm font-medium text-gray-900">
+                                Staff Status
+                            </label>
+                        </div>
+
+                        <div class="flex items-center">
+                            {{ form.is_superuser }}
+                            <label for="{{ form.is_superuser.id_for_label }}" class="ml-2 text-sm font-medium text-gray-900 ">
+                                Superuser Status
+                            </label>
+                        </div>
+                    </div>
+
+                    {% if form.errors %}
+                        <div class="mb-4 text-red-500">
+                            {{ form.errors }}
+                        </div>
+                    {% endif %}
+                    <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition duration-300">Add User</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-green-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 KrishiMitra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuToggle.addEventListener("click", function(event) {
+            mobileMenu.classList.toggle("hidden");
+            event.stopPropagation();
+        });
+
+        document.addEventListener("click", function(event) {
+            if (!mobileMenu.contains(event.target) && event.target !== menuToggle) {
+                mobileMenu.classList.add("hidden");
+            }
+        });
+    </script>
+</body>
+</html>

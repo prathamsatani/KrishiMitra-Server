@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Yield Dashboard - KrishiMitra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <nav class="bg-gradient-to-r from-green-600 to-green-700 p-4 text-white z-50 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="{% static 'images/favicon.ico' %}" alt="Admin Logo" class="h-12 w-12 rounded-full mr-2 border-2 border-white">
+                <span class="text-3xl font-bold">KrishiMitra Admin</span>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="{% url 'myadmin:home' %}" class="font-bold hover:text-green-200 text-xl transition duration-300">Home</a>
+                <a href="" class="font-bold hover:text-green-200 text-xl transition duration-300">Manage App</a>
+                <a href="" class="font-bold hover:text-green-200 text-xl transition duration-300">Change Password</a>
+                <a href="{% url 'myadmin:logout' %}" class="bg-white text-green-600 text-lg px-4 py-2 rounded-full hover:bg-green-100 transition duration-300">Logout</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-2xl">&#9776;</button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4">
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Dashboard</a>
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Manage App</a>
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Change Password</a>
+            <a href="{% url 'myadmin:logout' %}" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Logout</a>
+        </div>
+    </nav>
+
+    <main class="pt-8 pb-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold mb-8">Welcome, {{ request.user.username }}!</h1>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold mb-4">Quick Stats</h2>
+                    <ul>
+                        <li class="mb-2">Total Entries: <span class="font-bold">{{ total_entries }}</span></li>
+                        <li class="mb-2">Unique Users: <span class="font-bold">{{ unique_users }}</span></li>
+                        <li class="mb-2">States Covered: <span class="font-bold">{{ states_covered }}</span></li>
+                        <li class="mb-2">Seasons Recorded: <span class="font-bold">{{ seasons_recorded }}</span></li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold mb-4">Site Administration</h2>
+                    <ul>
+                        <li class="mb-2">Data Management
+                            <ul>
+                                <li class="mb-0 font-bold">&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'myadmin:cropreco' %}">Crop Recommendation Data</a></li>
+                                <li class="mb-0 font-bold">&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'myadmin:fertreco' %}">Fertilizer Recommendation Data</a></li>
+                            </ul>
+                        </li>
+                        <li class="mb-2">Reports
+                            <ul>
+                                <li class="mb-0 font-bold">&nbsp;&nbsp;&nbsp;&nbsp;<a href="">Generate Reports</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold mb-4">System Health</h2>
+                    <ul>
+                        <li class="mb-2">Server Status: <span class="font-bold text-green-600">Operational</span></li>
+                        <li class="mb-2">Database Status: <span class="font-bold text-green-600">Connected</span></li>
+                        <li class="mb-2">Last Update: <span class="font-bold">{{ last_update|date:"M d, Y" }}</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-semibold">Crop Yield Data</h2>
+                </div>
+
+                <!-- Search form -->
+                <form method="get" class="mb-6">
+                    <div class="flex">
+                        <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search by username, state, or season..." class="flex-grow p-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-green-400">
+                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-r">Search</button>
+                    </div>
+                </form>
+
+                <!-- Crop Yield Data table -->
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="py-2 px-4 text-left">Username</th>
+                                <th class="py-2 px-4 text-left">Date</th>
+                                <th class="py-2 px-4 text-left">Name</th>
+                                <th class="py-2 px-4 text-left">Season</th>
+                                <th class="py-2 px-4 text-left">State</th>
+                                <th class="py-2 px-4 text-left">Area</th>
+                                <th class="py-2 px-4 text-left">Annual Rainfall</th>
+                                <th class="py-2 px-4 text-left">Fertilizer Usage</th>
+                                <th class="py-2 px-4 text-left">Pesticide Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entry in crop_yield_data %}
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="py-2 px-4">{{ entry.username }}</td>
+                                <td class="py-2 px-4">{{ entry.date|date:"M d, Y" }}</td>
+                                <td class="py-2 px-4">{{ entry.name }}</td>
+                                <td class="py-2 px-4">{{ entry.season }}</td>
+                                <td class="py-2 px-4">{{ entry.state }}</td>
+                                <td class="py-2 px-4">{{ entry.area }}</td>
+                                <td class="py-2 px-4">{{ entry.annual_rainfall }}</td>
+                                <td class="py-2 px-4">{{ entry.fertilizer_usage }}</td>
+                                <td class="py-2 px-4">{{ entry.pesticide_usage }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="9" class="py-4 px-4 text-center">No crop yield data available.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-8 flex justify-between items-center">
+                    <span>
+                        Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ paginator.count }} entries
+                    </span>
+                    <div class="space-x-2">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">First</a>
+                            <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Previous</a>
+                        {% endif %}
+                
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <span class="bg-green-600 text-white px-3 py-1 rounded">{{ num }}</span>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <a href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+                
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Last</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-green-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 KrishiMitra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuToggle.addEventListener("click", function(event) {
+            mobileMenu.classList.toggle("hidden");
+            event.stopPropagation();
+        });
+
+        document.addEventListener("click", function(event) {
+            if (!mobileMenu.contains(event.target) && event.target !== menuToggle) {
+                mobileMenu.classList.add("hidden");
+            }
+        });
+    </script>
+</body>
+</html>

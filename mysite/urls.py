@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+app_name = 'mysite'
+
 urlpatterns = [
     path('', views.index, name='index'),  # Add this line for the root URL
     path('home/', views.home, name='home'),

@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-tu6$od90d0rd65-n%#*e_-al#0ljl8^b5eyn7uo)0en(#ksv)q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'rest_framework',
     'krishimitra',
+    'myadmin',
     'mysite',
 ]
 

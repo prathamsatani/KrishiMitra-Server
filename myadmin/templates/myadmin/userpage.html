@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - KrishiMitra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <nav class="bg-gradient-to-r from-green-600 to-green-700 p-4 text-white fixed top-0 left-0 right-0 z-50 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="{% static 'images/favicon.ico' %}" alt="Admin Logo" class="h-12 w-12 rounded-full mr-2 border-2 border-white">
+                <span class="text-3xl font-bold">KrishiMitra Admin</span>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="{% url 'myadmin:home' %}" class="font-bold hover:text-green-200 text-xl transition duration-300">Dashboard</a>
+                <a href="" class="font-bold hover:text-green-200 text-xl transition duration-300">Manage App</a>
+                <a href="" class="font-bold hover:text-green-200 text-xl transition duration-300">Change Password</a>
+                <a href="{% url 'myadmin:logout' %}" class="bg-white text-green-600 text-lg px-4 py-2 rounded-full hover:bg-green-100 transition duration-300">Logout</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-2xl">&#9776;</button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4">
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Dashboard</a>
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Manage App</a>
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Change Password</a>
+            <a href="{% url 'myadmin:logout' %}" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Logout</a>
+        </div>
+    </nav>
+
+    <section class="pt-24 pb-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold mb-8">Welcome, {{ request.user.username }}!</h1>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-semibold">Users</h2>
+                    <a href="" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Add user</a>
+                </div>
+
+                <!-- Search form -->
+                <form method="get" class="mb-6">
+                    <div class="flex">
+                        <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search users..." class="flex-grow p-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-green-400">
+                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-r">Search</button>
+                    </div>
+                </form>
+
+                <!-- User list table -->
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="py-2 px-4 text-left">Username</th>
+                                <th class="py-2 px-4 text-left">Email address</th>
+                                <th class="py-2 px-4 text-left">First name</th>
+                                <th class="py-2 px-4 text-left">Last name</th>
+                                <th class="py-2 px-4 text-left">Staff status</th>
+                                <th class="py-2 px-4 text-left">Superuser</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="py-2 px-4">
+                                    <a href="" class="text-green-600 hover:text-green-800">{{ user.username }}</a>
+                                </td>
+                                <td class="py-2 px-4">{{ user.email }}</td>
+                                <td class="py-2 px-4">{{ user.first_name }}</td>
+                                <td class="py-2 px-4">{{ user.last_name }}</td>
+                                <td class="py-2 px-4">
+                                    {% if user.is_staff %}
+                                    <span class="text-green-600">✓</span>
+                                    {% else %}
+                                    <span class="text-red-600">✗</span>
+                                    {% endif %}
+                                </td>
+                                <td class="py-2 px-4">
+                                    {% if user.is_superuser %}
+                                    <span class="text-green-600">✓</span>
+                                    {% else %}
+                                    <span class="text-red-600">✗</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-4 flex justify-between items-center">
+                    <span>{{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ paginator.count }} users</span>
+                    <div class="space-x-2">
+                        {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Previous</a>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Next</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-green-800 text-white py-6 mt-auto ">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 KrishiMitra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuToggle.addEventListener("click", function(event) {
+            mobileMenu.classList.toggle("hidden");
+            event.stopPropagation();
+        });
+
+        document.addEventListener("click", function(event) {
+            if (!mobileMenu.contains(event.target) && event.target !== menuToggle) {
+                mobileMenu.classList.add("hidden");
+            }
+        });
+    </script>
+</body>
+</html>
