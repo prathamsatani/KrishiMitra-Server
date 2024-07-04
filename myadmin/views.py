@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, get_user_model
 import django.contrib.auth
-from .forms import LoginForm
+from .forms import LoginForm, CreateUserForm
 from django.contrib.auth.models import User
 from krishimitra.models import (
     CropYield,
@@ -256,3 +256,15 @@ def custom_fertreco_list(request):
     }
 
     return render(request, "myadmin/fertpred.html", context)
+
+
+def createUser(request):
+    if request.method == "POST":
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+
+            return redirect("myadmin:get_user")
+    else:
+        form = CreateUserForm()
+    return render(request, "myadmin/adduser.html", {"form": form})

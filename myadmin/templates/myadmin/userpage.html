@@ -27,8 +27,6 @@
             </div>
             <div class="hidden md:flex space-x-6 items-center">
                 <a href="{% url 'myadmin:home' %}" class="font-bold hover:text-green-200 text-xl transition duration-300">Dashboard</a>
-                <a href="" class="font-bold hover:text-green-200 text-xl transition duration-300">Manage App</a>
-                <a href="" class="font-bold hover:text-green-200 text-xl transition duration-300">Change Password</a>
                 <a href="{% url 'myadmin:logout' %}" class="bg-white text-green-600 text-lg px-4 py-2 rounded-full hover:bg-green-100 transition duration-300">Logout</a>
             </div>
             <div class="md:hidden">
@@ -37,9 +35,7 @@
         </div>
         <!-- Mobile menu -->
         <div id="mobile-menu" class="hidden md:hidden mt-4">
-            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Dashboard</a>
-            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Manage App</a>
-            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Change Password</a>
+            <a href="" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Home</a>
             <a href="{% url 'myadmin:logout' %}" class="block py-2 px-4 text-xl hover:bg-green-700 transition duration-300">Logout</a>
         </div>
     </nav>
@@ -51,7 +47,7 @@
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-3xl font-semibold">Users</h2>
-                    <a href="" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Add user</a>
+                    <a href="{% url 'myadmin:adduser' %}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Add user</a>
                 </div>
 
                 <!-- Search form -->

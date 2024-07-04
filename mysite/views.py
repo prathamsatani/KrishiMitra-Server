@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect
 from .forms import (
-    MyForm,
     LoginForm,
     FertilizerRecommenderForm,
     CropRecommenderForm,

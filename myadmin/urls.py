@@ -11,4 +11,5 @@ urlpatterns = [
     path("db/cropyield/", views.custom_cropyield_list, name="cropyield"),
     path("db/cropreco/", views.custom_cropreco_list, name="cropreco"),
     path("db/fertreco/", views.custom_fertreco_list, name="fertreco"),
+    path("user/adduser/", views.createUser, name="adduser"),
 ]
