@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Welcome to KrishiMitra!
 
 Our Mission:
