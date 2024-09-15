@@ -6,3 +6,4 @@ pandas
 scikit-learn
 xgboost
 django_browser_reload
+psycopg2-binary
