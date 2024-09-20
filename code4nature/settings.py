@@ -49,7 +49,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, "public")
+STATIC_ROOT = os.path.join(BASE_DIR, "assets")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
