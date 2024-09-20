@@ -1,4 +1,4 @@
-`Welcome to KrishiMitra!
+Welcome to KrishiMitra!
 
 Our Mission:
 At KrishiMitra, we're on a mission to empower farmers with cutting-edge technology 
