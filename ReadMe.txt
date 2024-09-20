@@ -59,7 +59,7 @@ Mobile application is configured such that it can run using this remote server.
 Important Links:
 Remote URL: https://krishimitra.azurewebsites.net/
 Github Repo: https://github.com/prathamsatani/KrishiMitra-Server/tree/master
-Email: 21it417@bvmengineering.ac.in
+Email: iamprathamsatani2002@gmail.com
 =======
 Welcome to KrishiMitra!
 
@@ -80,7 +80,7 @@ What We Do:
 ---------------------------------------------------------------------------
 
 1) Clone the repository or download the project files to the local machine.
-   Skip this step is the files are already present in the local machine.
+   You can skip this step because the files are already on the local machine.
    Run the following command to do so:
 
 	git clone -b master https://github.com/prathamsatani/KrishiMitra-Server.git
@@ -90,7 +90,7 @@ What We Do:
 
 	cd KrishiMitra-Server
 	
-3) [Optional] Create and activate virtual environment.
+3) [Optional] Create and activate a virtual environment.
    Run the following command to do so:
 
 	python -m venv env
@@ -111,8 +111,7 @@ What We Do:
 
 
 In case of any difficulties faced during the setup process, do not hesitate to call at +91 9327604988 
-or send an email at 21it417@bvmengineering.ac.in
+or send an email at iamprathamsatani2002@gmail.com
 
 The same project can be access remotely on the url https://krishimitra.azurewebsites.net/
 Mobile application is configured such that it can run using this remote server.
->>>>>>> 5cb2341 (Commit 3 Jul)
