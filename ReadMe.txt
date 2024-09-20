@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2213fc524276b423d7494460f4e184b1519f7170
 Welcome to KrishiMitra!
 
 Our Mission:
